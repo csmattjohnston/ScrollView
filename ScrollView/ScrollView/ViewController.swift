@@ -32,23 +32,15 @@ class ViewController: UIViewController {
         
         let direction = sender.direction.rawValue //2 for right, 1 for left
         let scrollWidth = scrollView.frame.size.width //220
-        let scrollMidOffset = scrollWidth / 2 //110
         let scrollHeight = scrollView.frame.size.height
-        let currentMid = scrollView.bounds.midX
-        let MoveXToRight = currentMid + scrollMidOffset
-        let MoveXToLeft = currentMid - scrollMidOffset
+        let leftEdgeOfScrollView = scrollView.bounds.minX
+
         
-        
-        print("direction \(direction)")
-        print("MoveXToRight \(MoveXToRight)")
-        print("MoveXToLeft \(MoveXToLeft)")
-        print("scrollMidOFfset \(scrollMidOffset)")
-        print("")
         //right
         if direction == 2 {
-            scrollView.scrollRectToVisible(CGRect(x:MoveXToRight,y:scrollHeight / 2,width: scrollWidth, height:scrollHeight ), animated: true)
+            scrollView.scrollRectToVisible(CGRect(x:leftEdgeOfScrollView + scrollWidth,y:scrollHeight / 2,width: scrollWidth, height:scrollHeight ), animated: true)
         }else{
-            scrollView.scrollRectToVisible(CGRect(x:MoveXToLeft,y:scrollHeight / 2,width: scrollWidth, height:scrollHeight ), animated: true)
+            scrollView.scrollRectToVisible(CGRect(x:leftEdgeOfScrollView - scrollWidth,y:scrollHeight / 2,width: scrollWidth, height:scrollHeight ), animated: true)
         }
         
     }
@@ -96,7 +88,6 @@ class ViewController: UIViewController {
             imageView.frame = CGRect(x: newX - imageDimensionOffset, y: (scrollView.frame.size.height / 2) - imageDimensionOffset, width: imageDimensions, height: imageDimensions)
         }
         
-        scrollView.backgroundColor = UIColor.blue
         scrollView.clipsToBounds = false
         scrollView.contentSize = CGSize(width: contentWidth, height: view.frame.size.height)
  
